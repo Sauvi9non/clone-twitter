@@ -9,6 +9,7 @@ import reset from "styled-reset";
 import { useEffect, useState } from "react";
 import LoadingScreen from "./components/loading-screen";
 import { auth } from "./firebase";
+import styled from "styled-components";
 
 const router = createBrowserRouter([ //변수로 배열을 전달 
   {
@@ -50,6 +51,12 @@ body {
 
 `
 
+const Wrapper = styled.div`
+  heigth: 100vh;
+  display: flex;
+  justify-content: center;
+`;
+
 function App() {
 
   const [isLoading, setIsLoading] = useState(true);
@@ -57,8 +64,7 @@ function App() {
   const init = async() => {
     //wait for firebase
     await auth.authStateReady(); //파이어베이스가 준비될 때까지 기다림. 최초 인증 상태가 완료될 때 실행되는 Promise를 반환
-    setIsLoading(false);
-
+    setTimeout(()=>setIsLoading(false), 3000);
   }
 
   useEffect(()=>{ //웹페이지가 일단 로드되면 실행
@@ -66,12 +72,12 @@ function App() {
   },[]);
 
   return (
-    <>
+    <Wrapper>
       <GlobalStyles />
       <h1>CLONE TWITTER</h1>
       {/* isLoading이 true이면 LoadingScreen을 렌더링하고, false이면 RouterProvider를 렌더링 */}
       { isLoading ? <LoadingScreen /> : <RouterProvider router={router} /> }  
-    </>
+    </Wrapper>
   )
 }
 
