@@ -8,6 +8,7 @@ import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 import { useEffect, useState } from "react";
 import LoadingScreen from "./components/loading-screen";
+import { auth } from "./firebase";
 
 const router = createBrowserRouter([ //변수로 배열을 전달 
   {
@@ -55,7 +56,8 @@ function App() {
 
   const init = async() => {
     //wait for firebase
-    setTimeout(()=>setIsLoading(false), 2000);//if firebase is ready)
+    await auth.authStateReady(); //파이어베이스가 준비될 때까지 기다림. 최초 인증 상태가 완료될 때 실행되는 Promise를 반환
+    setIsLoading(false);
 
   }
 

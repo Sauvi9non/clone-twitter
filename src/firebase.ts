@@ -1,9 +1,6 @@
-// Import the functions you need from the SDKs you need
+import { getAuth } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyA7hV7imXqjQP_Xn1jGmJOIASMYnqqyJ5E",
   authDomain: "clone-twitter-89e72.firebaseapp.com",
@@ -14,4 +11,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig); //상단의 Configration 코드로 app을 생성하고
+
+// Authentication을 원한다는 코드를 작성
+export const auth = getAuth(app); //그 app에 댛은 Authentication을 사용하고 싶음
