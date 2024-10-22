@@ -6,6 +6,8 @@ import Login from "./routes/login";
 import CreateAccount from "./routes/create-account";
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
+import { useEffect, useState } from "react";
+import LoadingScreen from "./components/loading-screen";
 
 const router = createBrowserRouter([ //변수로 배열을 전달 
   {
@@ -49,13 +51,24 @@ body {
 
 function App() {
 
-  
+  const [isLoading, setIsLoading] = useState(true);
+
+  const init = async() => {
+    //wait for firebase
+    setTimeout(()=>setIsLoading(false), 2000);//if firebase is ready)
+
+  }
+
+  useEffect(()=>{ //웹페이지가 일단 로드되면 실행
+    init(); //async 함수 실행로 파이어베이스에서 사용자 로그인 체크
+  },[]);
 
   return (
     <>
       <GlobalStyles />
       <h1>CLONE TWITTER</h1>
-      <RouterProvider router={router} />
+      {/* isLoading이 true이면 LoadingScreen을 렌더링하고, false이면 RouterProvider를 렌더링 */}
+      { isLoading ? <LoadingScreen /> : <RouterProvider router={router} /> }  
     </>
   )
 }
