@@ -4,6 +4,8 @@ import Home from "./routes/home";
 import Profile from "./routes/profile";
 import Login from "./routes/login";
 import CreateAccount from "./routes/create-account";
+import { createGlobalStyle } from "styled-components";
+import reset from "styled-reset";
 
 function App() {
 
@@ -32,8 +34,24 @@ function App() {
     }
   ]);
 
+  const GlobalStyles = createGlobalStyle` // 전역 스타일 설정
+  ${reset};
+  //이제 여기에 전역 스타일 설정하기
+  * {
+    box-sizing: border-box;
+    border-radius: 30px;
+    },
+  body {
+    background-color: #555555; //grey
+    color: #ffffff; //white
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  },
+
+  `
+
   return (
     <>
+      <GlobalStyles />
       <h1>CLONE TWITTER</h1>
       <RouterProvider router={router} />
     </>
