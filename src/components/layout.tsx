@@ -1,4 +1,12 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import {styled} from "styled-components";
+import { auth } from "../firebase";
+import { signOut } from "firebase/auth";
+
+const Button = styled.button`
+    background-color: #A5C8FF;
+`;
+
 
 export default function Layout() {
   return (
