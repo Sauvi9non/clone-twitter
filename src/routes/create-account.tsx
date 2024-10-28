@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { FirebaseError } from "firebase/app";
 
 
 const Wrapper = styled.div`
@@ -20,6 +21,7 @@ const Title = styled.h1`
 
 const Form = styled.form`
     margin-top: 30px;
+    maring-bottom: 10px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -70,6 +72,7 @@ export default function CreateAccount() { //계정 생성 페이지
 
     const onSubmit = async(e:React.FormEvent<HTMLFormElement>) => { //form태그가 제출될 때 실행
         e.preventDefault(); //화면이 새로고침되는 것을 막는다.
+        setError("");
         if( isLoading && name === "" || email === "" || password === ""){ //name, email, password 중 하나라도 비어있으면
             return; //함수 종료
         }
@@ -82,8 +85,12 @@ export default function CreateAccount() { //계정 생성 페이지
             await updateProfile(credentials.user, {displayName: name}); //파이어베이스에 계정의 이름을 설정한다.
             //redirect to home
             navigate("/"); 
-        } catch(e){
-            //setError(e.message);
+        } catch(e){ //사용자가 로그인에 실패했을 때 여기서 에러메시지 사용자에게 보여주기
+            console.log(e);
+            if(e instanceof FirebaseError){
+                console.log(e.code, e.message);
+                setError(e.message);
+            }
         } finally {
             setIsLoading(false);
         }
