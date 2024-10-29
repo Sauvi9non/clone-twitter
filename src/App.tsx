@@ -11,6 +11,7 @@ import LoadingScreen from "./components/loading-screen";
 import { auth } from "./firebase";
 import styled from "styled-components";
 import ProtectedRoute from "./components/protected-route";
+import ResetPassword from "./components/reset-password";
 
 const router = createBrowserRouter([ //변수로 배열을 전달 
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([ //변수로 배열을 전달
   {
     path: "/create-account",
     element: <CreateAccount />,
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPassword />
   }
 ]);
 

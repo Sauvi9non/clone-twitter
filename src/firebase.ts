@@ -14,4 +14,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig); //상단의 Configration 코드로 app을 생성하고
 
 // Authentication을 원한다는 코드를 작성
-export const auth = getAuth(app); //그 app에 댛은 Authentication을 사용하고 싶음
+export const auth = getAuth(app); //그 app에 대한 Authentication을 사용하고 싶음

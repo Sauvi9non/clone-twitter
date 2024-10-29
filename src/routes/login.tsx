@@ -61,6 +61,9 @@ export function Login() { //로그인 페이지
         <Switcher>
           Are you new in here? <Link to="/create-account">Create Account</Link>
         </Switcher>
+        <Switcher>
+          <Link to="/reset-password">Forget Passoword?</Link>
+        </Switcher>
         <GithubLogin />
         {error !== "" ? <Error>{error}</Error> : null }
     </Wrapper>
