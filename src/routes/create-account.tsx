@@ -1,58 +1,9 @@
-import { styled } from "styled-components";
 import React, { useState } from "react";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, Form } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
-
-
-const Wrapper = styled.div`
-    heigth: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding 50px 0px;,s
-`;
-
-const Title = styled.h1`
-    font-size: 40px;
-`;
-
-const Form = styled.form`
-    margin-top: 30px;
-    maring-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 500px;
-`;
-
-const Input = styled.input`
-    padding: 10px;
-    border-radius: 30px;
-    border: none;
-    background-color: #ffffff;
-    color: #000000;
-    font-size: 16px;
-    text-align: center;
-
-    &[type="submit"] { //type이 submit인 input태그
-        cursor: pointer;
-        &:hover { //hover일 때는
-        opacity: 0.7;}
-    }
-`;
-
-const Error = styled.span`
-    color: #ff0000;
-    font-size: 16px;
-`;
-
-const Switcher = styled.text`
-      color: #A5C8FF;
-      margin-top: 10px;
-`;
+import { Input, Switcher, Title, Wrapper, Error } from "../components/auth-component";
 
 
 export default function CreateAccount() { //계정 생성 페이지

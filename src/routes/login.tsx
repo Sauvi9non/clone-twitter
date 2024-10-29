@@ -1,63 +1,13 @@
-import { styled } from "styled-components";
 import React, { useState } from "react";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { Wrapper, Title, Form, Input, Switcher, Error } from "../components/auth-component";
 
 
-const Wrapper = styled.div`
-    heigth: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding 50px 0px;,s
-`;
-
-const Title = styled.h1`
-    font-size: 40px;
-`;
-
-const Form = styled.form`
-    margin-top: 30px;
-    maring-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 500px;
-`;
-
-const Input = styled.input`
-    padding: 10px;
-    border-radius: 30px;
-    border: none;
-    background-color: #ffffff;
-    color: #000000;
-    font-size: 16px;
-    text-align: center;
-
-    &[type="submit"] { //type이 submit인 input태그
-        cursor: pointer;
-        &:hover { //hover일 때는
-        opacity: 0.7;}
-    }
-`;
-
-const Error = styled.span`
-    color: #ff0000;
-    font-size: 16px;
-`;
-
-const Switcher = styled.text`
-      color: #A5C8FF;
-      margin-top: 10px;
-`;
-
-
-
-export default function Login() { //로그인 페이지
+export function Login() { //로그인 페이지
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState("");
