@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useNavigate, Link, Form } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import { Input, Switcher, Title, Wrapper, Error } from "../components/auth-component";
+import GithubLogin from "../components/github-login";
 
 
 export default function CreateAccount() { //계정 생성 페이지
@@ -64,6 +65,7 @@ export default function CreateAccount() { //계정 생성 페이지
         <Input name="password" value={password} placeholder="password" type="password" onChange={onChange} required/> {/* PW */}
         <Input type="submit" value={isLoading ? "Creating..." : "Submit"}/> {/* 처음에는 false니까 계정 생성버튼이고, 버튼 누르면 true되니 계쩡 생성 로딩중 */}
         </Form>
+        <GithubLogin />
         <Switcher>
           Already have own account? <Link to="/login">Log in</Link>
         </Switcher>

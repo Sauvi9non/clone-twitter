@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Wrapper, Title, Form, Input, Switcher, Error } from "../components/auth-component";
-
+import GithubLogin from "../components/github-login";
 
 export function Login() { //로그인 페이지
     const navigate = useNavigate();
@@ -61,6 +61,7 @@ export function Login() { //로그인 페이지
         <Switcher>
           Are you new in here? <Link to="/create-account">Create Account</Link>
         </Switcher>
+        <GithubLogin />
         {error !== "" ? <Error>{error}</Error> : null }
     </Wrapper>
     )
