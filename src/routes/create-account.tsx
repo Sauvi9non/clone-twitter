@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import React, { useState } from "react";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { FirebaseError } from "firebase/app";
 
 
@@ -47,6 +47,11 @@ const Input = styled.input`
 const Error = styled.span`
     color: #ff0000;
     font-size: 16px;
+`;
+
+const Switcher = styled.text`
+      color: #A5C8FF;
+      margin-top: 10px;
 `;
 
 
@@ -108,6 +113,9 @@ export default function CreateAccount() { //계정 생성 페이지
         <Input name="password" value={password} placeholder="password" type="password" onChange={onChange} required/> {/* PW */}
         <Input type="submit" value={isLoading ? "Creating..." : "Submit"}/> {/* 처음에는 false니까 계정 생성버튼이고, 버튼 누르면 true되니 계쩡 생성 로딩중 */}
         </Form>
+        <Switcher>
+          Already have own account? <Link to="/login">Log in</Link>
+        </Switcher>
         {error !== "" ? <Error>{error}</Error> : null }
     </Wrapper>
     )
