@@ -50,7 +50,7 @@ ${reset};
   border-radius: 30px;
   },
 body {
-  background-color: #555555; //grey
+  background-color: #222222; //grey
   color: #ffffff; //white
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 },
