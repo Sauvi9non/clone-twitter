@@ -1,5 +1,8 @@
 import { styled } from "styled-components"
 import { useState } from "react";
+import { addDoc, collection, updateDoc } from "firebase/firestore";
+import { auth, database, storage } from "../firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const Form = styled.form`
     display: flex;
@@ -69,19 +72,43 @@ export default function PostTweetForm() {
         if (files && files.length === 1) { //file이 있고, 하나면
             setFile(files[0]);
         }
-
     }
 
-    const onSubmit = (e:React.FormEvent<HTMLFormElement>) => { //폼이 제출될 때
+    const onSubmit = async (e:React.FormEvent<HTMLFormElement>) => { //폼이 제출될 때
         e.preventDefault();
-        //tweeting
-        setIsLoading(true);
+        const user = auth.currentUser;
+        //  이상한 트윗인지 확인
+        if( user === null || isLoading || tweet.length > 200 || tweet === "") return ;
+
+        try {
+            setIsLoading(true); //비로소 Posting...으로 버튼이 바뀐다.
+            const doc = await addDoc(collection(database,"tweets"),{ //트윗은 database에 저장
+                tweet: tweet,
+                createdAt: Date.now(),
+                username: user.displayName || "Anonoymous",
+                userId: user.uid,
+            }); //어떤 컬렉션에 다큐먼트를 만들고 싶은지
+            
+            if(file){ //파일이 있다면 storage에 저장 //업로드되는 파일의 폴더와 저장명 지정가능
+                const fileRef = ref(storage,`tweets/${user.uid}-${user.displayName}/${doc.id}`);//파일의 레퍼렌스를 받고
+                const result = await uploadBytes(fileRef,file);
+                const url = await getDownloadURL(result.ref);
+                await updateDoc(doc,{file: url});
+            }
+
+            setTweet("");
+            setFile(null);
+        } catch(e) {
+            console.log(e)
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     return (
     <Form onSubmit={onSubmit}>
-        <TextArea placeholder="What's going on?" rows = {5} maxLength={200} value={tweet} onChange={onChange}/>
-        <AttachFileBtn htmlFor="file">{ file ? "Add File" : "File Added"}</AttachFileBtn>
+        <TextArea required placeholder="What's going on?" rows = {5} maxLength={200} value={tweet} onChange={onChange}/>
+        <AttachFileBtn htmlFor="file">{ file ? "File Added" : "Add File"}</AttachFileBtn>
         <AttachFileInput id="file" type="file" accept="image/*" onChange={onFileChange} />
         <Submit type="submit" value={isLoading ? "Posting..." : "Post Tweet"}></Submit>
     </Form>

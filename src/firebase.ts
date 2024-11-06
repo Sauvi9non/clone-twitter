@@ -1,5 +1,7 @@
 import { getAuth } from "firebase/auth";
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA7hV7imXqjQP_Xn1jGmJOIASMYnqqyJ5E",
@@ -15,3 +17,9 @@ const app = initializeApp(firebaseConfig); //상단의 Configration 코드로 ap
 
 // Authentication을 원한다는 코드를 작성
 export const auth = getAuth(app); //그 app에 대한 Authentication을 사용하고 싶음
+
+//데이터베이스에 대한 권한
+export const database = getFirestore(app);
+
+//스토리지에 대한 권한
+export const storage = getStorage(app);
