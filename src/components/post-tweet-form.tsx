@@ -88,6 +88,8 @@ export default function PostTweetForm() {
                 username: user.displayName || "Anonoymous",
                 userId: user.uid,
             }); //어떤 컬렉션에 다큐먼트를 만들고 싶은지
+
+            console.log(storage.app.options);
             
             if(file){ //파일이 있다면 storage에 저장 //업로드되는 파일의 폴더와 저장명 지정가능
                 const fileRef = ref(storage,`tweets/${user.uid}-${user.displayName}/${doc.id}`);//파일의 레퍼렌스를 받고
