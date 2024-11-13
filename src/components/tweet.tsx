@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { ITweet } from "./timeline";
-import { deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { auth, database } from "../firebase";
 
 const Wrapper = styled.div`
@@ -37,6 +37,17 @@ const DeleteButton = styled.button`
     }
 `;
 
+const EditButton = styled.button`
+    padding: 5px;
+    margin: 5px;
+    background-color: #00ff00;
+    cursor: pointer;
+    font-size: 16px;
+    &:focus {
+        outline: none;
+    }
+`;
+
 export default function Tweet({username, tweet, userId, id}:ITweet){
     const user = auth.currentUser;
     
@@ -51,12 +62,19 @@ export default function Tweet({username, tweet, userId, id}:ITweet){
 //
         }
     }
+
+    const onEdit = async () => {
+        const editedTweet: string | null = prompt("트윗 수정하기", tweet);
+        if(editedTweet === null) return;
+        await updateDoc(doc(database,`tweets/${id}`), {tweet: editedTweet});
+    }
     return(
         <Wrapper>
             <Column>
             <Nickname>{username}</Nickname>
             <Payload>{tweet}</Payload>
             { user?.uid == userId ? <DeleteButton onClick={onDelete}>Delete</DeleteButton> : null}
+            { user?.uid == userId ? <EditButton onClick={onEdit}>Edit</EditButton> : null}
             </Column>
             {/**
              * if (photo)
