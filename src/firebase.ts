@@ -7,7 +7,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyA7hV7imXqjQP_Xn1jGmJOIASMYnqqyJ5E",
   authDomain: "clone-twitter-89e72.firebaseapp.com",
   projectId: "clone-twitter-89e72",
-  storageBucket: "clone-twitter-89e72.appspot.com",
+  storageBucket: "clone-twitter-89e72.firebasestorage.app",
   messagingSenderId: "474831924016",
   appId: "1:474831924016:web:5a040de325bee3c32436f5"
 };

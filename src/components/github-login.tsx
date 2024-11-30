@@ -27,11 +27,9 @@ export default function GithubLogin() {
             const provider = new GithubAuthProvider();
             await signInWithPopup(auth, provider); 
             navigate("/");
-        } catch(error) {
+        } catch(e) {
             // Handle Errors here.
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.error(errorCode, errorMessage);
+            console.error(e);
           }
     }
     return <>

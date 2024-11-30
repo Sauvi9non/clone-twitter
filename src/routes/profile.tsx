@@ -6,7 +6,7 @@ import { updateProfile } from "firebase/auth";
 import { ITweet } from "../components/timeline";
 import Tweet from "../components/tweet";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { collection, doc, getDocs, limit, orderBy, query, updateDoc, where } from "firebase/firestore";
+import { collection, getDocs, limit, orderBy, query, where } from "firebase/firestore";
 
 const Wrapper = styled.div`
   display: flex;
