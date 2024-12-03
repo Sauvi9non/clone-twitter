@@ -61,16 +61,17 @@ export default function PostTweetForm() {
     const [isLoading, setIsLoading] = useState(false);
     const [tweet, setTweet] = useState("");
     const [file, setFile] = useState<File|null>(null);
-
     const onChange = (e:React.ChangeEvent<HTMLTextAreaElement>) => {
         setTweet(e.target.value);
         console.log(e);
     }
 
     const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { files } = e.target;
+        const {files} = e.target;
+        console.log(e);
         if (files && files.length === 1) { //file이 있고, 하나면
             setFile(files[0]);
+            console.log(`파일 ${file}`);
         }
     }
 
@@ -92,18 +93,19 @@ export default function PostTweetForm() {
             console.log(storage.app.options);
             
             if(file){ //파일이 있다면 storage에 저장 //업로드되는 파일의 폴더와 저장명 지정가능
+                console.log(`파일 업로드 중 ${file}`);
                 const fileRef = ref(storage,`tweets/${user.uid}-${user.displayName}/${doc.id}`);//파일의 레퍼렌스를 받고
                 const result = await uploadBytes(fileRef,file);
                 const url = await getDownloadURL(result.ref);
-                await updateDoc(doc,{file: url});
+                await updateDoc(doc,{photo: url});
+                console.log(`파일 업로드 완료 ${file}`);
             }
-
-            setTweet("");
-            setFile(null);
         } catch(e) {
             console.log(e)
         } finally {
             setIsLoading(false);
+            setTweet("");
+            setFile(null);
         }
     }
 

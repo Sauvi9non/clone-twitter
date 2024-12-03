@@ -23,6 +23,11 @@ const Payload = styled.p`
     margin: 10px 0px;
 `;
 
+const Photo = styled.img`
+    width: 100%;
+    heigt: 100%;
+`
+
 const Column = styled.div`
 `;
 
@@ -48,7 +53,7 @@ const EditButton = styled.button`
     }
 `;
 
-export default function Tweet({username, tweet, userId, id}:ITweet){
+export default function Tweet({username, tweet, userId, id, photo}:ITweet){
     const user = auth.currentUser;
     
     const onDelete = async () => {
@@ -73,6 +78,8 @@ export default function Tweet({username, tweet, userId, id}:ITweet){
             <Column>
             <Nickname>{username}</Nickname>
             <Payload>{tweet}</Payload>
+            { !photo ? null : <Photo src={photo}></Photo>}
+            <></>
             { user?.uid == userId ? <DeleteButton onClick={onDelete}>Delete</DeleteButton> : null}
             { user?.uid == userId ? <EditButton onClick={onEdit}>Edit</EditButton> : null}
             </Column>

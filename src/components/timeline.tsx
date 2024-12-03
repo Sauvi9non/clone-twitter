@@ -10,7 +10,7 @@ import { Unsubscribe } from "firebase/auth";
 
 
 export interface ITweet { //type은 firestore에서 확인. 
-    //photo?: string | null;
+    photo?: string | null;
     createdAt: number;
     tweet: string;
     userId: string; 
@@ -40,7 +40,7 @@ export default function Timeline(){
             // console.log(` 스냅숏 ${snapshot.docs}`);
     
             // const tweets = snapshot.docs.map(doc => { //docs에서 값 추출해서 객체로 만들기.
-            //     const { tweet, userId, username, createdAt } = doc.data(); //photo는 나중에...
+            //     const { tweet, userId, username, createdAt } = doc.data(); //file는 나중에...
             //     return {
             //         tweet, userId, username, createdAt,
             //         id: doc.id, //트윗의 아이디는 위에 것들이랑 같이 있지 않고 document에 있기 때문에 이렇게 따로....
@@ -49,9 +49,9 @@ export default function Timeline(){
             
             unsubscribe = await onSnapshot(tweetsQuery, (snapshot) => { //마운트 될 때 구독
                 const tweets = snapshot.docs.map(doc => {//docs에서 값 추출해서 객체로 만들기.
-                     const { tweet, userId, username, createdAt } = doc.data(); //photo는 나중에...
+                     const { photo, tweet, userId, username, createdAt } = doc.data();
                      return {
-                         tweet, userId, username, createdAt,
+                         photo, tweet, userId, username, createdAt,
                          id: doc.id, //트윗의 아이디는 위에 것들이랑 같이 있지 않고 document에 있기 때문에 이렇게 따로....
                      }
                  });
